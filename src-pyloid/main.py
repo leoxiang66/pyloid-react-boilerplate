@@ -1,7 +1,12 @@
 from pyloid import Pyloid, PyloidAPI, Bridge, TrayEvent, is_production, get_production_path
 import os
+import random
+import string
+from typing import Any
 
-app = Pyloid(app_name="Pyloid-App", single_instance=True)
+app = Pyloid(app_name="skey_generator", single_instance=True)
+WIDTH = 600
+HEIGHT = 300
 
 if (is_production()):
     app.set_icon(os.path.join(get_production_path(), "icons/icon.png"))
@@ -32,48 +37,52 @@ app.set_tray_menu_items(
 ############################## Bridge ##############################
 
 
+
+
+
 class custom(PyloidAPI):
+    @Bridge(str, result=str)
+    def print_info(self,msg):
+        print(msg)
+        
     @Bridge(result=str)
-    def print_info(self):
-        print("button clicked")
+    def generate_random_string(self):
+        characters = string.ascii_letters + string.digits
+        random_string = ''.join(random.choice(characters) for _ in range(16))
+        print(random_string)
+        return random_string
     
-    @Bridge(result=str)
-    def create_window(self):
-        window = app.create_window(
-            title="Pyloid Browser-2",
-            js_apis=[custom()],
-        )
-
-        window.set_size(800, 600)
-        window.set_position(0, 0)
-
-        if (is_production()):
-            window.set_dev_tools(False)
-            window.load_file(os.path.join(
-                get_production_path(), "build/index.html"))
-        else:
-            window.set_dev_tools(True)
-            window.load_url("http://localhost:5173")
-
-        window.show()
-        window.focus()
-
-        return window.id
+    @Bridge(str,result=bool)
+    def copy2clipoard(self,str):
+        try:
+            app.copy_to_clipboard(str)
+            return True
+        except Exception as e:
+            print(e)
+            return False
+        
+        
+    
+    
 ####################################################################
 
 
 if (is_production()):
     # production
     window = app.create_window(
-        title="Pyloid Browser-production",
+        title="单点登录密钥生成器",
         js_apis=[custom()],
+        width=WIDTH,
+        height=HEIGHT
     )
     window.load_file(os.path.join(get_production_path(), "build/index.html"))
 else:
     window = app.create_window(
-        title="Pyloid Browser-dev",
+        title="单点登录密钥生成器",
         js_apis=[custom()],
         dev_tools=True,
+        width=WIDTH,
+        height=HEIGHT
     )
     window.load_url("http://localhost:5173")
 
