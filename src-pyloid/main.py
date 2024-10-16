@@ -34,6 +34,10 @@ app.set_tray_menu_items(
 
 class custom(PyloidAPI):
     @Bridge(result=str)
+    def print_info(self):
+        print("button clicked")
+    
+    @Bridge(result=str)
     def create_window(self):
         window = app.create_window(
             title="Pyloid Browser-2",
