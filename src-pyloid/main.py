@@ -1,8 +1,13 @@
 from pyloid import Pyloid, PyloidAPI, Bridge, TrayEvent, is_production, get_production_path
 import os
-import random
-import string
-from typing import Any
+import uuid
+
+def get_device_id():
+    # 获取设备的MAC地址
+    mac_address = hex(uuid.getnode()).replace('0x', '').upper()
+    # 将MAC地址格式化为设备ID
+    device_id = '-'.join(mac_address[i:i+2] for i in range(0, 11, 2))
+    return device_id
 
 app = Pyloid(app_name="skey_generator", single_instance=True)
 WIDTH = 600
@@ -45,17 +50,11 @@ class custom(PyloidAPI):
     def print_info(self,msg):
         print(msg)
         
-    @Bridge(result=str)
-    def generate_random_string(self):
-        characters = string.ascii_letters + string.digits
-        random_string = ''.join(random.choice(characters) for _ in range(16))
-        print(random_string)
-        return random_string
     
     @Bridge(str,result=bool)
-    def copy2clipoard(self,str):
+    def bindDeviceID(self,key):
         try:
-            app.copy_to_clipboard(str)
+            did = get_device_id()
             return True
         except Exception as e:
             print(e)
