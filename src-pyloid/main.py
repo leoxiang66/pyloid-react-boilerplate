@@ -1,7 +1,8 @@
 from pyloid import Pyloid, PyloidAPI, Bridge, TrayEvent, is_production, get_production_path
 import os
 
-app = Pyloid(app_name="Pyloid-App", single_instance=True)
+VERSION = "0.1.0"
+app = Pyloid(app_name=f"FST 按键精灵 v{VERSION}", single_instance=True)
 
 if (is_production()):
     app.set_icon(os.path.join(get_production_path(), "icons/icon.png"))
@@ -65,13 +66,13 @@ class custom(PyloidAPI):
 if (is_production()):
     # production
     window = app.create_window(
-        title="Pyloid Browser-production",
+        title=f"FST 按键精灵 v{VERSION}",
         js_apis=[custom()],
     )
     window.load_file(os.path.join(get_production_path(), "build/index.html"))
 else:
     window = app.create_window(
-        title="Pyloid Browser-dev",
+        title=f"FST 按键精灵 v{VERSION} dev",
         js_apis=[custom()],
         dev_tools=True,
     )
