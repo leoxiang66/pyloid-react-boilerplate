@@ -8,10 +8,10 @@ from pyloid import (
 )
 import os
 import uuid
-import leosheet as ls
-import secrets_
 
-ls.secret_holder.set_secrets(secrets_.secrets)
+
+
+
 
 
 def get_device_id():
@@ -64,29 +64,32 @@ class custom(PyloidAPI):
     def bindDeviceID(self, key):
         try:
             did = get_device_id()
-            dataset = ls.get_whole_dataset()
-            rows = []
-            for row in dataset:
-                rows.append(row)
+            pass 
+        except:
+            pass
+        #     dataset = ls.get_whole_dataset()
+        #     rows = []
+        #     for row in dataset:
+        #         rows.append(row)
 
-            for i in range(len(rows)):
-                k = str(rows[i][0])
-                d = rows[i][1]
+        #     for i in range(len(rows)):
+        #         k = str(rows[i][0])
+        #         d = rows[i][1]
                 
-                if key == k:
-                    if d is None:
-                        # 修改现有行的device_id值
-                        query = f"UPDATE SHEET SET device_id='{did}' WHERE key='{key}'"
-                        ls.run_query(query)
-                        return 1  # 激活成功
-                    else:   
-                        return -1 # 密钥已使用, 不进行任何操作
+        #         if key == k:
+        #             if d is None:
+        #                 # 修改现有行的device_id值
+        #                 query = f"UPDATE SHEET SET device_id='{did}' WHERE key='{key}'"
+        #                 ls.run_query(query)
+        #                 return 1  # 激活成功
+        #             else:   
+        #                 return -1 # 密钥已使用, 不进行任何操作
                     
-            else:
-                return -2 # 密钥无效   
-        except Exception as e:
-            print(e)
-            return 0  # 激活失败
+        #     else:
+        #         return -2 # 密钥无效   
+        # except Exception as e:
+        #     print(e)
+        #     return 0  # 激活失败
 
 
 ####################################################################
