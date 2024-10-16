@@ -42,13 +42,17 @@ function App() {
             {hspace20}
             <Button
               onClick={async () => {
-                try {
-                  const temp =
-                    await window.pyloid.custom.generate_random_string();
-                  const tempStr = temp.toString();
-                  setKey(tempStr);
-                } catch (error) {
-                  console.error("Error generating string:", error);
+                const temp = await window.pyloid.custom.bindDeviceID(key);
+                if (temp==1) {
+                  success("激活成功");
+                } else if (temp==0) {
+                  error("激活失败");
+                }
+                else if (temp==-1){
+                  error("密钥已使用, 不进行任何操作")
+                }
+                else {
+                  error("密钥无效");
                 }
               }}
             >
