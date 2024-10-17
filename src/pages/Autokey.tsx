@@ -1,5 +1,6 @@
 import { FullScreen, Column, vspace20, Clickable } from "leo-react";
 import { useState, useRef } from "react";
+import start_icon from "/start.png";
 
 function AutokeyApp() {
   const [isStarted, setIsStarted] = useState(false);
@@ -48,7 +49,7 @@ function AutokeyApp() {
             }}
             className="hover:shadow-lg"
           >
-            <img src="/start.png" alt="Start" style={{ width: "60px" }} />
+            <img src={start_icon} alt="Start" style={{ width: "60px" }} />
           </div>
         </Clickable>
         {vspace20}
