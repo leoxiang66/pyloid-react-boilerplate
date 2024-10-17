@@ -1,5 +1,5 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+from PyInstaller.utils.hooks import copy_metadata
 
 a = Analysis(
     ['src-pyloid/main.py'],
@@ -7,7 +7,7 @@ a = Analysis(
     binaries=[],
     datas=[('src-pyloid/icons/', 'icons/'),
              ('build/', 'build/'),
-             ],
+             ] + copy_metadata('requests', recursive=True) ,
     hiddenimports=['PySide6.QtWebEngineCore'],
     hookspath=[],
     hooksconfig={},
