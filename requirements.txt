@@ -2,3 +2,4 @@ pyinstaller==6.11.0
 pyloid==0.11.5
 appdirs
 pyautogui
+requests
