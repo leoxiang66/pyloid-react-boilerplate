@@ -67,7 +67,7 @@ class custom(PyloidAPI):
             dev_url = "http://127.0.0.1:8000"
             prod_url = "https://leoxiang66-io-server-1.onrender.com"
             did = get_device_id()
-            response = re.post(f"{dev_url}/key_activation", json={
+            response = re.post(f"{prod_url}/key_activation", json={
                     "key": key,
                     "did": did
                 }, headers={"Content-Type": "application/json"})
