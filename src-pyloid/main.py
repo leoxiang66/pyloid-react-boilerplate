@@ -8,6 +8,7 @@ from pyloid import (
 )
 import os
 import uuid
+import requests as re
 
 
 
@@ -63,34 +64,19 @@ class custom(PyloidAPI):
     @Bridge(str, result=int)
     def bindDeviceID(self, key):
         try:
+            dev_url = "http://127.0.0.1:8000"
+            prod_url = "https://leoxiang66-io-server-1.onrender.com"
             did = get_device_id()
-            pass 
+            response = re.post(f"{dev_url}/key_activation", json={
+                    "key": key,
+                    "did": did
+                }, headers={"Content-Type": "application/json"})
+            response = response.json()['code']
+            print(response)
+            return response
         except:
-            pass
-        #     dataset = ls.get_whole_dataset()
-        #     rows = []
-        #     for row in dataset:
-        #         rows.append(row)
-
-        #     for i in range(len(rows)):
-        #         k = str(rows[i][0])
-        #         d = rows[i][1]
-                
-        #         if key == k:
-        #             if d is None:
-        #                 # 修改现有行的device_id值
-        #                 query = f"UPDATE SHEET SET device_id='{did}' WHERE key='{key}'"
-        #                 ls.run_query(query)
-        #                 return 1  # 激活成功
-        #             else:   
-        #                 return -1 # 密钥已使用, 不进行任何操作
-                    
-        #     else:
-        #         return -2 # 密钥无效   
-        # except Exception as e:
-        #     print(e)
-        #     return 0  # 激活失败
-
+            return 0
+        
 
 ####################################################################
 
