@@ -1,4 +1,4 @@
-import { Button, Input, message } from "antd";
+import { Button, Input, message, Spin } from "antd";
 import {
   Column,
   FullScreen,
@@ -11,6 +11,7 @@ import { useState } from "react";
 
 function App() {
   const [key, setKey] = useState("");
+  const [loading, setLoading] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const success = (msg:string) => {
     messageApi.open({
@@ -25,6 +26,24 @@ function App() {
     });
   };
 
+  const generateKey = async () => {
+    setLoading(true);
+    setTimeout(async () => {
+      try {
+        const temp = await window.pyloid.custom.generate_random_string();
+        const tempStr = temp.toString();
+        if (tempStr.startsWith("error")) {
+          error(tempStr);
+          setKey("");
+        } else {
+          setKey(tempStr);
+        }
+      } catch (error) {
+        console.error("Error generating string:", error);
+      }
+      setLoading(false);
+    }, 500); // 延迟500毫秒调用generate_random_string函数
+  };
 
   return (
     <FullScreen>
@@ -38,19 +57,8 @@ function App() {
           <Row>
             <Input value={key} />
             {hspace20}
-            <Button
-              onClick={async () => {
-                try {
-                  const temp =
-                    await window.pyloid.custom.generate_random_string();
-                  const tempStr = temp.toString();
-                  setKey(tempStr);
-                } catch (error) {
-                  console.error("Error generating string:", error);
-                }
-              }}
-            >
-              生成
+            <Button onClick={generateKey} disabled={loading}>
+              {loading ? <Spin size="small" /> : "生成"}
             </Button>
             {hspace20}
             <Button

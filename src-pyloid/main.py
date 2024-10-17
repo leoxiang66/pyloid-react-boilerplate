@@ -2,7 +2,7 @@ from pyloid import Pyloid, PyloidAPI, Bridge, TrayEvent, is_production, get_prod
 import os
 import random
 import string
-from typing import Any
+import requests as re
 
 app = Pyloid(app_name="skey_generator", single_instance=True)
 WIDTH = 600
@@ -50,7 +50,18 @@ class custom(PyloidAPI):
         characters = string.ascii_letters + string.digits
         random_string = ''.join(random.choice(characters) for _ in range(16))
         print(random_string)
-        return random_string
+        
+        try:
+            a = re.post("http://127.0.0.1:8000/add_key", json={
+                "key": random_string
+            }, headers={"Content-Type": "application/json"})
+            if a.json()['code'] == 1:
+                return random_string
+            else:
+                return f"error: {a.json()['msg']}"
+        except Exception as e:
+            return f'error: {str(e)}'
+            
     
     @Bridge(str,result=bool)
     def copy2clipoard(self,str):
