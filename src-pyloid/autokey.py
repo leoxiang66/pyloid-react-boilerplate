@@ -1,19 +1,20 @@
 import utils
-import pyautogui
+import pydirectinput
 import time
 
 @utils.stoppable(sleep_time=2)
 def press_arrow_keys():
     # 按下方向下键 2 秒
-    pyautogui.keyDown('down')
+    pydirectinput.keyDown('down')
     time.sleep(2)
-    pyautogui.keyUp('down')
+    pydirectinput.keyUp('down')
     
-    pyautogui.keyDown('s')
+    # 按下 's' 键 2 秒
+    pydirectinput.keyDown('s')
     time.sleep(2)
-    pyautogui.keyUp('s')
+    pydirectinput.keyUp('s')
 
     # 按下方向上键 2 秒
-    pyautogui.keyDown('up')
+    pydirectinput.keyDown('up')
     time.sleep(2)
-    pyautogui.keyUp('up')
+    pydirectinput.keyUp('up')
