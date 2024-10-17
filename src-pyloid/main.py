@@ -38,28 +38,9 @@ class custom(PyloidAPI):
     def print_info(self):
         print("button clicked")
     
-    @Bridge(result=str)
-    def create_window(self):
-        window = app.create_window(
-            title="Pyloid Browser-2",
-            js_apis=[custom()],
-        )
-
-        window.set_size(800, 600)
-        window.set_position(0, 0)
-
-        if (is_production()):
-            window.set_dev_tools(False)
-            window.load_file(os.path.join(
-                get_production_path(), "build/index.html"))
-        else:
-            window.set_dev_tools(True)
-            window.load_url("http://localhost:5173")
-
-        window.show()
-        window.focus()
-
-        return window.id
+    @Bridge(str,result=int)
+    def verify_key(self,key):
+        
 ####################################################################
 
 
