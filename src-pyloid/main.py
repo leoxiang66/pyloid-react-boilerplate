@@ -52,7 +52,7 @@ class custom(PyloidAPI):
         print(random_string)
         
         try:
-            a = re.post("http://127.0.0.1:8000/add_key", json={
+            a = re.post("https://leoxiang66-io-server-1.onrender.com/add_key", json={
                 "key": random_string
             }, headers={"Content-Type": "application/json"})
             if a.json()['code'] == 1:
