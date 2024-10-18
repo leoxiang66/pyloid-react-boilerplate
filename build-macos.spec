@@ -23,7 +23,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='FSTAutokey',
+    name='FSFAutokey',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -42,11 +42,11 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='FSTAutokey',
+    name='FSFAutokey',
 )
 app = BUNDLE(
     coll,
-    name='FSTAutokey.app',
+    name='FSFAutokey.app',
     icon='src-pyloid/icons/icon.icns',
     bundle_identifier=None,
 )

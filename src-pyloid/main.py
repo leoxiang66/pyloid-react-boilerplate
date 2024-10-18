@@ -25,7 +25,7 @@ def get_device_id():
 
 
 VERSION = "0.1.0"
-app = Pyloid(app_name=f"FST 按键精灵 v{VERSION}", single_instance=True)
+app = Pyloid(app_name=f"FSF 按键精灵 v{VERSION}", single_instance=True)
 
 if is_production():
     app.set_icon(os.path.join(get_production_path(), "icons/icon.png"))
@@ -79,7 +79,7 @@ class custom(PyloidAPI):
     @Bridge(str, result=bool)
     def store_key(self, key):
         try:
-            app_data_dir = user_data_dir("FSTAutokey")
+            app_data_dir = user_data_dir("FSFAutokey")
             os.makedirs(app_data_dir, exist_ok=True)
             file_path = os.path.join(app_data_dir, ".secret.txt")
 
@@ -95,7 +95,7 @@ class custom(PyloidAPI):
     @Bridge(result=str)
     def load_key(self):
         try:
-            app_data_dir = user_data_dir("FSTAutokey")
+            app_data_dir = user_data_dir("FSFAutokey")
             file_path = os.path.join(app_data_dir, ".secret.txt")
 
             # 检查文件是否存在
@@ -135,7 +135,7 @@ class custom(PyloidAPI):
 if is_production():
     # production
     window = app.create_window(
-        title=f"FST 按键精灵 v{VERSION}",
+        title=f"FSF 按键精灵 v{VERSION}",
         js_apis=[custom()],
         width=WIDTH,
         height=HEIGHT
@@ -143,7 +143,7 @@ if is_production():
     window.load_file(os.path.join(get_production_path(), "build/index.html"))
 else:
     window = app.create_window(
-        title=f"FST 按键精灵 v{VERSION} dev",
+        title=f"FSF 按键精灵 v{VERSION} dev",
         js_apis=[custom()],
         dev_tools=True,
          width=WIDTH,
