@@ -7,6 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+*.pyc
+src-pyloid/__pycache__/
+
+test.py
+
 
 
 # Editor directories and files

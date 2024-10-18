@@ -1,5 +1,7 @@
 import threading
 import time
+import pygetwindow
+
 
 def stoppable(sleep_time=1):
     def decorator(func):
@@ -23,3 +25,12 @@ def stoppable(sleep_time=1):
         return wrapper
 
     return decorator
+
+
+def get_all_windows_title():
+    # 获取所有可见窗口的标题
+    window_titles = pygetwindow.getAllTitles()
+    window_titles = [title for title in window_titles if title.strip()]
+    return window_titles
+
+

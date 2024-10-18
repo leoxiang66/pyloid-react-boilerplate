@@ -10,7 +10,7 @@ import os
 import uuid
 import requests as re
 from appdirs import user_data_dir
-from autokey import press_arrow_keys
+from autokey import autokey_job
 
 WIDTH = 500
 HEIGHT = 400
@@ -60,7 +60,7 @@ class custom(PyloidAPI):
     @Bridge(result=bool)
     def start(self):
         try:
-            self.stop_func = press_arrow_keys()
+            self.stop_func = autokey_job()
             print("start ...")
             return True
         except:
