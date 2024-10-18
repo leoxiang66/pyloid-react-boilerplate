@@ -5,8 +5,10 @@ import pygetwindow
 
 @utils.stoppable(sleep_time=2)
 def autokey_job():
-    click_game_start("自由足球怀旧")
+    pydirectinput.FAILSAFE = False
     press_arrow_keys()
+    click_game_start("自由足球怀旧")
+    
 
 
 def click_game_start(program_title):
