@@ -65,7 +65,7 @@ function App() {
         {vspace20}
         {vspace20}
         <img src={FSFLogo} width="50%"></img>
-        <h2>自由足球按键精灵</h2>
+        <h2>自由足球按键精灵 - 闯关模式</h2>
         <Sizedbox width="40%">
           <Input
             placeholder="输入你的密钥"
